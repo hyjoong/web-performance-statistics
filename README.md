@@ -34,8 +34,22 @@ width로 애니메이션 되는 효과를 transfrom으로 변경해서 버벅이
  
 ### Step1. 컴포넌트 Lazy Loading (Code Splitting)
 
-컴포넌트 lazyload 적용
+모달 코드를 따로 분리하고 필요할 때 로딩하게 구현
 
 step2 적용 후 Lighthouse
 
   <img src="https://images.velog.io/images/hyunjoong/post/b3a7952b-2b56-4690-bd44-5ecc7356a2c2/image.png" width="70%" height="70%">
+
+
+<br>
+<br>
+<br>
+
+Lazy Loading으로 최초페이지 띄우는 데에는 성능이 빨라졌지만 모달을 띄울떄에는 성능이 더 느려진 현상을 해결하기 위해서 Preloading 방식 사용
+
+클릭을 해서 모달을 열기 전에 미리 모달과 관련된 코드를 로드한다. (클릭한 순간에 바로 띄울 수 있게)
+
+Preload 타이밍
+
+- 1.  버튼 위에 마우스를 올려 놨을 때
+- 2.  최초페이지가 로드가 되고, 모든 컴포넌트의 마운트가 끝났을 때

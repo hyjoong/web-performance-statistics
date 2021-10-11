@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from "react";
+import React, { useState, Suspense, lazy, useEffect } from "react";
 import styled from "styled-components";
 import Header from "./components/Header";
 import InfoTable from "./components/InfoTable";
@@ -6,11 +6,28 @@ import SurveyChart from "./components/SurveyChart";
 import Footer from "./components/Footer";
 //import ImageModal from "./components/ImageModal";
 
+function lazyWithPreload(importFunction) {
+  const component = React.lazy(importFunction);
+  //lazy를 통해 나온 해당 컴포넌트에 preload라는 속성을 추가
+  component.preload = importFunction;
+  return component;
+}
+
 // 동적으로 import
-const LazyImageModal = lazy(() => import("./components/ImageModal"));
+const LazyImageModal = lazyWithPreload(() => import("./components/ImageModal"));
+
 function App() {
   const [showModal, setShowModal] = useState(false);
 
+  // 최초 페이지가 로드가 되고 모든 컴포넌트의 마운트가 끝났을 때
+  useEffect(() => {
+    LazyImageModal.preload();
+  }, []);
+
+  // 마우스를  hover했을 때 import
+  //   const handleMouseEnter = () => {
+  //     const component = import("./components/ImageModal");
+  //   };
   return (
     <div className="App">
       <Header />
@@ -19,6 +36,7 @@ function App() {
         onClick={() => {
           setShowModal(true);
         }}
+        // onMouseOver={handleMouseEnter}
       >
         올림픽 사진 보기
       </ButtonModal>
