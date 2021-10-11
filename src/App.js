@@ -22,6 +22,9 @@ function App() {
   // 최초 페이지가 로드가 되고 모든 컴포넌트의 마운트가 끝났을 때
   useEffect(() => {
     LazyImageModal.preload();
+    const img = new Image();
+    img.src =
+      "https://stillmed.olympic.org/media/Photos/2016/08/20/part-1/20-08-2016-Football-Men-01.jpg?interpolation=lanczos-none&resize=*:800";
   }, []);
 
   // 마우스를  hover했을 때 import
